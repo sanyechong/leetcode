@@ -18,7 +18,6 @@ Explanation: The answer is "wke", with the length of 3.
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
 '''
 
-
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         if not s:
@@ -26,19 +25,17 @@ class Solution:
         if len(s) == 1:
             return 1
 
-        sub_s = []
-        end = 0
-        start = 0
+        res_d = {}
+        start = end = res = 0
         length = len(s)
         while end < length:
-            if s[end] not in sub_s:
-                sub_s.append(s[end])
-                end += 1
-            else:
-                sub_s.remove(s[end])
-                start += 1
-        return end-start
+            if res_d.get(s[end], -1) >= start:
+                res = max(res, end-start)
+                start = res_d[s[end]] + 1
+            res_d[s[end]] = end
+            end += 1
+        return max(res, end-start)
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.lengthOfLongestSubstring("bbbbbaccc"))
+    print(s.lengthOfLongestSubstring("pwwkew"))
