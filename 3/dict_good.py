@@ -20,14 +20,12 @@ Explanation: The answer is "wke", with the length of 3.
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s:
-            return 0
-        if len(s) == 1:
-            return 1
+       length = len(s)
+        if length in (0, 1):
+            return length
 
         res_d = {}
         start = end = res = 0
-        length = len(s)
         while end < length:
             if res_d.get(s[end], -1) >= start:
                 res = max(res, end-start)
