@@ -26,7 +26,7 @@ class Solution:
         if len(s) == 1:
             return 1
 
-        win = 0
+        win = 2
         start = 0
         length = len(s)
         while start+win <= length:
