@@ -5,27 +5,30 @@
 #         self.left = None
 #         self.right = None
 
-class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
         if not root:
             return []
-        q_cur = []
+        
         result_all = []
-
-        q_cur.append(root)
+        cur_layer = []
+        cur_layer.append(root)
         while True:
             result = []
-            q_sub = []
-            for i in q_cur:
+            next_layer = []
+            for i in cur_layer:
                 result.append(i.val)
                 if i.left:
-                    q_sub.append(i.left)
+                    next_layer.append(i.left)
                 if i.right:
-                    q_sub.append(i.right)
+                    next_layer.append(i.right)
             result_all.append(result)
-            del q_cur
-            q_cur = q_sub
-            if len(q_sub) == 0:
+            del cur_layer
+            cur_layer = next_layer
+            if not next_layer:
                 break
         return result_all
-
