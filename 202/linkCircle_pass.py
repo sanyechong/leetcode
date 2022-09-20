@@ -17,22 +17,28 @@ Explanation:
 1^2 + 0^2 + 0^2 = 1
 '''
 
-class Solution:
-    @staticmethod
-    def nextNum(n: int) -> int:
-        sum = 0
-        while n > 0:
-            n, d = divmod(n, 10)
-            sum += d ** 2    
-        return sum    
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        def getNextNum(n):
+            sum = 0
+            while n > 0:
+                i, d = divmod(n, 10)
+                n = i
+                sum += d ** 2
+            return sum
 
-    def isHappy(self, n: int) -> bool:
-        slow = Solution.nextNum(n)
-        fast = Solution.nextNum(Solution.nextNum(n))
-        while fast != 1 and slow != fast:
-            slow = Solution.nextNum(slow)
-            fast = Solution.nextNum(Solution.nextNum(fast))
-        return fast == 1
+        slow = fast = n
+        while True:
+            slow = getNextNum(slow)
+            fast = getNextNum(getNextNum(fast))
+            if fast == 1:
+                return True
+            elif slow == fast:
+                return False
 
 if __name__ == '__main__':
     s = Solution()
